@@ -3,7 +3,7 @@ import streamlit as st
 from typing import Dict, Any, Callable
 
 from config.app_config import DEFAULT_THEME_FILE
-from processing.process_files import process_uploaded_files
+#from processing.process_files import process_uploaded_files
 from utils.system_utils import format_time
 
 def render_upload_tab() -> None:
@@ -31,9 +31,28 @@ def render_upload_tab() -> None:
                      theme_file_exists):
             start_time = time.time()
             st.session_state.timing_data['process_start_time'] = start_time
+
             st.info("Dask cluster is being initialized. Processing will start shortly...")
             result = process_uploaded_files(uploaded_files, theme_file=DEFAULT_THEME_FILE)
-            
+
+            elapsed_time = time.time() - start_time
+            st.session_state.timing_data['process_end_time'] = time.time()
+
+            if result:
+                st.session_state.result = result
+
+                st.subheader("Processing Summary")            
+                st.write(f"Processed {len(result['skipped_files'])} files (app IDs not in theme dictionary)")
+
+                if result['skipped_files']:
+                    with st.expander("Show skipped files"):
+                        for file_name, app_id in result['skipped_files']:
+                            st.write(f"- {file_name} (App ID: {app_id if app_id else 'Unknown'})")
+
+                with st.expander("Show sample of processed data"):
+                    sample_df = result['final_report'][['steam_appid', 'Theme', '#Reviews', 'Positive', 'Negative', 'LikeRatio', 'DislikeRatio']].head(10)
+                
+                st.info("Summarize next")
         
 
 def check_theme_file_exists() -> bool:
