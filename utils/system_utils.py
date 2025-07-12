@@ -38,4 +38,6 @@ def format_time(seconds):
         remaining_seconds = seconds % 60
         return f"{int(hours)} hours, {int(minutes)} minutes, {remaining_seconds:.2f} seconds"
     
-    
+def get_uploaded_files_length(files) -> int:
+    #TODO - complete this
+    pass
