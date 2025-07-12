@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 from typing import Dict, List, Any
 
+from components.download_button import render_download_buttons
+from components.review_samples import render_review_sample
 
 def show_summarized_results(summarized_report: pd.DataFrame) -> None:
     game_name_mapping = {}
