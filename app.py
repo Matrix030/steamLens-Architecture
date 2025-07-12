@@ -9,6 +9,8 @@ if parent_dir not in sys.path:
 
 from ui.sidebar import render_sidebar
 from ui.upload_tab import render_upload_tab
+from ui.summarize_tab import render_summarize_tab
+from ui.result_tab import render_results_tab
 
 
 STREAMLIT_PAGE_CONFIG = {
