@@ -5,6 +5,7 @@ from typing import Dict, Any, Callable
 from config.app_config import DEFAULT_THEME_FILE
 #from processing.process_files import process_uploaded_files
 from utils.system_utils import format_time
+from processing.process_files import process_uploaded_files
 
 def render_upload_tab() -> None:
     st.header("Upload and Process Parquet Files")
