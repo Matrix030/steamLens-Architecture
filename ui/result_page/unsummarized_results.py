@@ -2,7 +2,9 @@ import streamlit as st
 import pandas as pd
 from typing import Dict, List, Any
 
-def show_unsummarized_results(summarized_report: pd.DataFrame) -> None:
+from components.review_samples import render_review_sample
+from components.download_button import render_download_buttons
+def show_unsummarized_results(final_report: pd.DataFrame) -> None:
     game_name_mapping = {}
     if 'result' in st.session_state and 'game_name_mapping' in st.session_state.result:
         game_name_mapping = st.session_state.result['game_name_mapping']
@@ -54,7 +56,7 @@ def show_unsummarized_results(summarized_report: pd.DataFrame) -> None:
         col1, col2 = st.columns(2) 
 
         with col1:
-            render_review_samples(theme_data, 'Positive_Reviews', "Sample Positive Reviews")
+            render_review_sample(theme_data, 'Positive_Reviews', "Sample Positive Reviews")
 
         with col2:
             render_review_sample(theme_data, 'Negative_Reviews', "Sample Negative Reviews")
@@ -63,7 +65,7 @@ def show_unsummarized_results(summarized_report: pd.DataFrame) -> None:
         st.info("Go to 'Summarize' tab to generate sentiment-based summaries for what players love and dislike  about each theme.")
 
 
-        render_download_button(final_report, with_summaries=False)
+        render_download_buttons(final_report, with_summaries=False)
 
 
 
